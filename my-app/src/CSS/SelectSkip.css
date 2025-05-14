@@ -1,0 +1,12 @@
+.skip-image {
+  width: 100%;
+  height: 120px;
+  background-color: #eee;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 14px;
+  color: #656;
+  border-radius: 4px;
+  margin-bottom: 10px;
+}
