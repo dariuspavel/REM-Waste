@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { type SkipItem } from './API';
 import { getSkipImage } from './SkipImages';
 import '../src/CSS/SelectSkip.css';
@@ -8,38 +8,48 @@ type Props = {
 };
 
 const SelectSkip: React.FC<Props> = ({ skips }) => {
+  const [selectedId, setSelectedId] = useState<number | null>(null);
+
   return (
-    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
+    <div className="skip-container">
       {skips.map((skip) => {
         const skipImage = getSkipImage(skip.size);
+        const isSelected = skip.id === selectedId;
 
         return (
           <div
             key={skip.id}
-            style={{
-              border: '1px solid #ccc',
-              borderRadius: '8px',
-              padding: '1rem',
-              width: '220px',
-            }}
+            className={`skip-card${isSelected ? ' selected' : ''}`}
+            onClick={() => setSelectedId(skip.id)}
           >
             <div className="skip-image">
-              <img src={skipImage} alt={`${skip.size} Yard Skip`} style={{ width: '100%', borderRadius: '4px' }} />
+              <img src={skipImage} alt={`${skip.size} Yard Skip`} />
             </div>
 
-            <h3>{skip.size} Yard Skip</h3>
-            <p>{skip.hire_period_days} day hire period</p>
-            <p>£{skip.price_before_vat}</p>
+            <div className="skip-body">
+              <h3 className="skip-title">{skip.size} Yard Skip</h3>
+              <p className="skip-period">{skip.hire_period_days} day hire</p>
+              <p className="skip-price">£{skip.price_before_vat}</p>
+              {skip.allows_heavy_waste && (
+                <p className="skip-ok">Heavy waste allowed</p>
+              )}
+              {!skip.allowed_on_road && (
+                <p className="skip-warning">Not allowed on road</p>
+              )}
+              {skip.forbidden && (
+                <p className="skip-alert">Forbidden</p>
+              )}
+            </div>
 
-            {!skip.allowed_on_road && (
-              <p style={{ color: 'red', fontWeight: 'bold' }}>Not Allowed On Road</p>
-            )}
-            {skip.forbidden && (
-              <p style={{ color: 'orange', fontWeight: 'bold' }}>Forbidden</p>
-            )}
-            {skip.allows_heavy_waste && (
-              <p style={{ color: 'green' }}>Heavy waste allowed</p>
-            )}
+            <button
+              className="select-button"
+              onClick={(e) => {
+                e.stopPropagation();
+                setSelectedId(skip.id);
+              }}
+            >
+              {isSelected ? 'Selected' : 'Select This Skip'}
+            </button>
           </div>
         );
       })}
