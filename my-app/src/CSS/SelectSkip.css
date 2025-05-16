@@ -1,6 +1,6 @@
 .skip-container {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(4, 16.6rem);
   gap: 1rem;
   padding: 2rem;
   justify-content: center;
@@ -11,20 +11,27 @@
   display: flex;
   flex-direction: column;
   background-color: #ffffff;
-  border: 2px solid ;      
+  border: 2px solid rgba(0, 0, 0, 0.01) ;      
   border-radius: 12px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   overflow: hidden;
   width: 240px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, border-color 0.2s;
+  
 }
 .skip-card:hover {
   transform: translateY(-5px);
   border-color: #ffb300;         
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.5);
 }
 
 .skip-card.selected {
   border-color: #1565C0;
+  box-shadow: 
+    0 8px 16px rgba(0, 0, 0, 0.1),
+    0 4px 6px rgba(0, 0, 0, 0.5);
 }
 .skip-image {
   width: 100%;
@@ -45,22 +52,77 @@
 .skip-title {
   margin: 0;
   font-size: 1.1rem;
-  color: #2E8B57;
+  color: rgb(0, 0, 0);
 }
 .skip-period {
   margin: 0.25rem 0;
   font-size: 0.9rem;
   color: #555;
 }
+
+.price-info-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 .skip-price {
-  margin: 0.5rem 0;
   font-size: 1.25rem;
   font-weight: bold;
   color: #228B22;
 }
+
+.info-icon {
+  position: relative;
+  top: -15px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 10px;
+  height: 10px;
+  margin-left: 0px;
+  background-color: #e0e0e0;
+  color: #ffffff;     
+  border-radius: 50%;
+  font-size: 12px;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.skip-card {
+  overflow: visible;
+}
+
+.info-tooltip {
+  display: none;
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 50%;
+  transform: translateX(-50%);
+  
+  min-width: 160px;            
+  max-width: 240px;            
+  white-space: normal;         
+  word-break: break-word;      
+
+  background-color: #fff;
+  color: #333;
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  z-index: 10;
+}
+
+
+.price-info-wrapper:hover .info-tooltip {
+  display: block;
+}
+
+
 .skip-ok {
   margin: 0.25rem 0;
   font-size: 0.9rem;
+  font-weight: bold;
   color: #2E8B57;
 }
 .skip-warning {
@@ -99,4 +161,67 @@
 
 .skip-card.selected .select-button {
   background-color: #1565C0;
+}
+
+.select-skip-page {
+  width: 100%;
+  background-color: #FAFAFA;
+  padding-bottom: 2rem;
+}
+
+.skip-header {
+  max-width: 1008px;
+  margin: 0 auto 2rem;
+  text-align: center;
+}
+
+.stepper {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.9rem;
+  color: #bbb;
+  margin-bottom: 1rem;
+}
+
+.stepper .step {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #555;
+}
+
+.stepper .step.done {
+  color: #4CAF50;
+}
+
+.stepper .step.current {
+  color: #1565C0;
+  font-weight: bold;
+}
+
+.stepper .divider {
+  color: #888;
+}
+
+.skip-title-main {
+  font-size: 1.75rem;
+  color: black;
+  margin: 0.5rem 0 0.25rem;
+}
+
+.skip-subtitle {
+  font-size: 1rem;
+  color: #555;
+  margin: 0;
+}
+
+.skip-container {
+  max-width: 1008px;
+  margin: 0 auto;
+  padding: 0 1rem;
+
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1rem;
 }
