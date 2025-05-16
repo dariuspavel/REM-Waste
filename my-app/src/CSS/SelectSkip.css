@@ -1,11 +1,15 @@
 .skip-container {
-  display: grid;
-  grid-template-columns: repeat(4, 16.6rem);
-  gap: 1rem;
-  padding: 2rem;
   justify-content: center;
   background-color: #FAFAFA;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1rem;
+  padding: 2rem 1rem;
+  width: 100%;
+  box-sizing: border-box;
 }
+
+
 
 .skip-card {
   display: flex;
@@ -17,6 +21,7 @@
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
   transition: transform 0.2s, border-color 0.2s;
   overflow: visible;
+  width: 100%;
 }
 .skip-card:hover {
   transform: translateY(-5px);
@@ -190,12 +195,13 @@
 }
 
 .stepper {
-  display: inline-flex;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: max-content;
   align-items: center;
   gap: 0.5rem;
-  font-size: 0.9rem;
-  color: #bbb;
-  margin-bottom: 1rem;
+  overflow-x: auto;           /* allow horizontal scroll if it absolutely must */
+  padding: 0 1rem;
 }
 
 .stepper .step {
@@ -215,7 +221,7 @@
 }
 
 .stepper .divider {
-  color: #888;
+  opacity: 0.5;
 }
 
 .skip-title-main {
@@ -228,16 +234,6 @@
   font-size: 1rem;
   color: #555;
   margin: 0;
-}
-
-.skip-container {
-  max-width: 1008px;
-  margin: 0 auto;
-  padding: 0 1rem;
-
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
 }
 
 .sticky-bar {
@@ -313,4 +309,67 @@
 .btn-continue {
   background-color: #1565c0;
   color: white;
+}
+
+@media (max-width: 640px) {
+  .stepper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);  /* three columns */
+    grid-template-rows: repeat(2, auto);    /* two rows */
+    gap: 0.5rem 1rem;                       /* small vertical gap, larger horizontal */
+    padding: 0;                             /* reset side padding */
+    overflow: visible;                      /* no need to scroll */
+  }
+
+  /* hide the “——” dividers on mobile */
+  .stepper .divider {
+    display: none;
+  }
+
+  /* center each step in its cell */
+  .stepper .step {
+    justify-self: center;
+    text-align: center;
+    font-size: 0.9rem;
+  }
+  .sticky-content {
+    /* Stack vertically and center */
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    padding-right: 20px;        /* remove left offset */
+  }
+
+  .sticky-details {
+    display: flex;
+    flex-direction: row;
+    align-items: center;    /* center text lines */
+    text-align: center;
+    gap: 1rem;
+  }
+
+  .sticky-details strong {
+    font-size: 1rem;
+  }
+
+  .sticky-actions .btn {
+    padding: 0.2rem 0.5rem;
+    font-size: 1rem;
+  }
+
+  /* Slightly tighter gap between them */
+  .sticky-actions {
+    margin-right: 1.5rem;  /* if you want to keep them away from the edge */
+  }
+}
+
+
+/* Desktop (≥ 1025px): four columns */
+@media (min-width: 1025px) {
+  .skip-container {
+    grid-template-columns: repeat(4, 1fr);
+    max-width: 1024px; /* or 4×240px + gaps = ~1008px */
+    margin: 0 auto;
+  }
 }
